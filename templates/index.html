@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html {
+                zoom: 200%;
+            }
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='pictures/favicon.ico') }}">
+        <title>{{page_title}}</title>
+    </head>
+    <body>
+        <h1>Choose The Data for View</h1>
+        <form action="/Data" method="post" onsubmit="return onSubmitForm(event)">
+            {% for txt in fields %}
+            <label>{{ txt }}:</label>
+            <input type="text" id="{{ txt }}" oninput="checkExistence('{{ reader }}','{{ txt }}',event, this.id)">
+            <br>
+            {% endfor %}
+            <div class="button-container">
+                <button type="submit" id="search-button" class="red-button" name="button" value="button_value" onmouseover="specialHover(this.id)" onmouseout="resetHover(this.id)" onclick="playSound()" disabled>Play Sound</button>
+                <button id="popupBtn" class="pop" name="popup" value="button_value" onmouseover="specialHover(this.id)" onmouseout="resetHover(this.id)" onclick="openOverlay()" disabled>I've Heard It</button>
+            </div>
+            <div class="time-label-container">
+                 <label id="time-label" hidden></label>
+            </div>
+            <audio id="myAudio">
+                <source src="static/sounds/BreakingBad.mp3" type="audio/mpeg">
+            </audio>
+        </form>
+       <div id="overlay">
+          <div id="popup">
+                <div id="popup-header">
+                      <h2></h2>
+                      <div id="close-button-container">
+                            <button id="close-button" onmouseover="specialHover(this.id)" onmouseout="resetHover(this.id)" onclick="closeOverlay()">X</button>
+                      </div>
+                </div>
+                <img src="static/pictures/picture.png">
+          </div>
+        </div>
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    </body>
+</html>
